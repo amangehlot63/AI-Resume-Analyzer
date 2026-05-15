@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Database
+database/app.db
+
+# Uploaded resumes
+static/uploads/
+
+# PDF reports
+resume_report.pdf
+
+# Environment files
+.env
