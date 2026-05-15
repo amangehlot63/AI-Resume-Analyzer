@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Dashboard</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Poppins',sans-serif;
+            background:linear-gradient(135deg,#020617,#0f172a,#111827);
+            color:white;
+            min-height:100vh;
+            overflow-x:hidden;
+        }
+
+        .dashboard{
+            display:flex;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+
+            width:280px;
+
+            min-height:100vh;
+
+            background:rgba(255,255,255,0.06);
+
+            border-right:1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(20px);
+
+            padding:35px 25px;
+
+            position:fixed;
+        }
+
+        .logo{
+
+            font-size:28px;
+
+            font-weight:700;
+
+            color:#38bdf8;
+
+            margin-bottom:50px;
+
+            text-align:center;
+        }
+
+        .menu{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:18px;
+        }
+
+        .menu a{
+
+            text-decoration:none;
+
+            color:#cbd5e1;
+
+            padding:16px 20px;
+
+            border-radius:15px;
+
+            transition:0.3s;
+
+            font-size:15px;
+
+            display:flex;
+
+            align-items:center;
+
+            gap:15px;
+        }
+
+        .menu a:hover{
+
+            background:rgba(56,189,248,0.15);
+
+            color:#38bdf8;
+
+            transform:translateX(5px);
+        }
+
+        .logout{
+
+            margin-top:40px !important;
+
+            background:rgba(239,68,68,0.15);
+        }
+
+        .logout:hover{
+
+            background:rgba(239,68,68,0.25) !important;
+
+            color:#ef4444 !important;
+        }
+
+        /* MAIN CONTENT */
+
+        .main{
+
+            margin-left:280px;
+
+            width:100%;
+
+            padding:40px;
+        }
+
+        .topbar{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:35px;
+        }
+
+        .topbar h1{
+
+            font-size:42px;
+
+            background:linear-gradient(to right,#38bdf8,#818cf8);
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+        }
+
+        .welcome{
+
+            color:#cbd5e1;
+        }
+
+        /* HERO CARD */
+
+        .hero{
+
+            background:linear-gradient(135deg,#06b6d4,#3b82f6);
+
+            border-radius:30px;
+
+            padding:40px;
+
+            margin-bottom:35px;
+
+            position:relative;
+
+            overflow:hidden;
+        }
+
+        .hero::before{
+
+            content:'';
+
+            position:absolute;
+
+            width:250px;
+            height:250px;
+
+            background:rgba(255,255,255,0.15);
+
+            border-radius:50%;
+
+            top:-80px;
+            right:-80px;
+        }
+
+        .hero h2{
+
+            font-size:38px;
+
+            margin-bottom:15px;
+        }
+
+        .hero p{
+
+            color:#e0f2fe;
+
+            max-width:700px;
+
+            line-height:1.8;
+        }
+
+        .hero-btn{
+
+            display:inline-block;
+
+            margin-top:25px;
+
+            padding:16px 28px;
+
+            border-radius:15px;
+
+            background:white;
+
+            color:#0f172a;
+
+            text-decoration:none;
+
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        .hero-btn:hover{
+
+            transform:translateY(-4px);
+        }
+
+        /* STATS */
+
+        .stats{
+
+            display:grid;
+
+            grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+            gap:25px;
+
+            margin-bottom:35px;
+        }
+
+        .card{
+
+            background:rgba(255,255,255,0.08);
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(20px);
+
+            border-radius:25px;
+
+            padding:30px;
+
+            transition:0.3s;
+
+            box-shadow:0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .card:hover{
+
+            transform:translateY(-6px);
+        }
+
+        .card i{
+
+            font-size:35px;
+
+            margin-bottom:20px;
+
+            color:#38bdf8;
+        }
+
+        .card h3{
+
+            color:#cbd5e1;
+
+            margin-bottom:10px;
+        }
+
+        .card p{
+
+            font-size:34px;
+
+            font-weight:700;
+
+            color:white;
+        }
+
+        /* GRID */
+
+        .grid{
+
+            display:grid;
+
+            grid-template-columns:2fr 1fr;
+
+            gap:25px;
+
+            margin-bottom:35px;
+        }
+
+        .panel{
+
+            background:rgba(255,255,255,0.08);
+
+            border:1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(20px);
+
+            border-radius:25px;
+
+            padding:30px;
+        }
+
+        .panel h2{
+
+            margin-bottom:25px;
+
+            color:#38bdf8;
+        }
+
+        canvas{
+
+            background:white;
+
+            border-radius:20px;
+
+            padding:15px;
+        }
+
+        /* AI INSIGHTS */
+
+        .insight{
+
+            background:rgba(255,255,255,0.05);
+
+            padding:18px;
+
+            border-radius:16px;
+
+            margin-bottom:15px;
+
+            line-height:1.7;
+
+            color:#e2e8f0;
+
+            transition:0.3s;
+        }
+
+        .insight:hover{
+
+            background:rgba(255,255,255,0.08);
+        }
+
+        /* ACTIVITY */
+
+        .activity{
+
+            margin-top:20px;
+        }
+
+        .activity-item{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:15px;
+
+            margin-bottom:18px;
+
+            background:rgba(255,255,255,0.05);
+
+            padding:15px;
+
+            border-radius:15px;
+        }
+
+        .activity-item i{
+
+            color:#38bdf8;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1000px){
+
+            .grid{
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media(max-width:768px){
+
+            .sidebar{
+                display:none;
+            }
+
+            .main{
+                margin-left:0;
+                padding:20px;
+            }
+
+            .topbar{
+                flex-direction:column;
+                align-items:flex-start;
+                gap:15px;
+            }
+
+            .topbar h1{
+                font-size:34px;
+            }
+
+            .hero h2{
+                font-size:30px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+
+        <div class="sidebar">
+
+            <div class="logo">
+                AI Dashboard 🚀
+            </div>
+
+            <div class="menu">
+
+                <a href="/">
+                    <i class="fa-solid fa-house"></i>
+                    Home
+                </a>
+
+                <a href="/history">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Analysis History
+                </a>
+
+                <a href="/download-report">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    Download Reports
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Analytics
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-brain"></i>
+                    AI Insights
+                </a>
+
+                <a href="/logout"
+                   class="logout">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- MAIN -->
+
+        <div class="main">
+
+            <div class="topbar">
+
+                <div>
+
+                    <h1>AI Control Center</h1>
+
+                    <p class="welcome">
+
+                        Welcome back,
+                        {{ session['user'] }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- HERO -->
+
+            <div class="hero">
+
+                <h2>
+                    Supercharge Your Resume With AI 🚀
+                </h2>
+
+                <p>
+
+                    Analyze resumes, optimize ATS scores,
+                    generate interview intelligence,
+                    and improve job matching using AI-powered
+                    NLP technologies.
+
+                </p>
+
+                <a href="/"
+                   class="hero-btn">
+
+                    Analyze Resume
+
+                </a>
+
+            </div>
+
+            <!-- STATS -->
+
+            <div class="stats">
+
+                <div class="card">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    <h3>Total Analyses</h3>
+
+                    <p>{{ total_skills }}</p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <h3>Average ATS Score</h3>
+
+                    <p>{{ ats_score }}%</p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                    <h3>Job Match Rate</h3>
+
+                    <p>{{ job_match_score }}%</p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    <h3>AI Suggestions</h3>
+
+                    <p>{{ total_questions }}</p>
+
+                </div>
+
+            </div>
+
+            <!-- GRID -->
+
+            <div class="grid">
+
+                <!-- CHART -->
+
+                <div class="panel">
+
+                    <h2>Resume Analytics</h2>
+
+                    <canvas id="analyticsChart"></canvas>
+
+                </div>
+
+                <!-- INSIGHTS -->
+
+                <div class="panel">
+
+                    <h2>AI Insights</h2>
+
+                    <div class="insight">
+
+                        📈 Resumes with GitHub links
+                        show higher ATS compatibility.
+
+                    </div>
+
+                    <div class="insight">
+
+                        🚀 Adding project metrics improves
+                        recruiter visibility significantly.
+
+                    </div>
+
+                    <div class="insight">
+
+                        💡 ATS scores above 80%
+                        receive stronger keyword matching.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTIVITY -->
+
+            <div class="panel">
+
+                <h2>Recent Activity</h2>
+
+                <div class="activity">
+
+                    <div class="activity-item">
+
+                        <i class="fa-solid fa-file"></i>
+
+                        <span>
+                            Resume analyzed successfully
+                        </span>
+
+                    </div>
+
+                    <div class="activity-item">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        <span>
+                            ATS score improved by 12%
+                        </span>
+
+                    </div>
+
+                    <div class="activity-item">
+
+                        <i class="fa-solid fa-brain"></i>
+
+                        <span>
+                            AI interview questions generated
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const ctx =
+        document.getElementById('analyticsChart');
+
+        new Chart(ctx, {
+
+            type:'line',
+
+            data:{
+
+                labels:[
+                    'Mon',
+                    'Tue',
+                    'Wed',
+                    'Thu',
+                    'Fri',
+                    'Sat'
+                ],
+
+                datasets:[{
+
+                    label:'ATS Performance',
+
+                    data:[
+                        65,
+                        72,
+                        78,
+                        80,
+                        84,
+                        90
+                    ],
+
+                    borderColor:'#06b6d4',
+
+                    backgroundColor:'rgba(6,182,212,0.2)',
+
+                    fill:true,
+
+                    tension:0.4
+                }]
+            },
+
+            options:{
+
+                responsive:true,
+
+                plugins:{
+
+                    legend:{
+
+                        labels:{
+                            color:'black'
+                        }
+                    }
+                },
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true,
+
+                        ticks:{
+                            color:'black'
+                        }
+                    },
+
+                    x:{
+
+                        ticks:{
+                            color:'black'
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,43 +1,389 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>Signup</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Signup - AI Resume Analyzer</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:'Poppins',sans-serif;
+
+            background:linear-gradient(135deg,#020617,#0f172a,#111827);
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            overflow:hidden;
+
+            position:relative;
+
+            color:white;
+        }
+
+        body::before{
+
+            content:'';
+
+            position:absolute;
+
+            width:350px;
+            height:350px;
+
+            background:#06b6d4;
+
+            filter:blur(180px);
+
+            top:-100px;
+            left:-100px;
+
+            opacity:0.25;
+
+            z-index:-1;
+        }
+
+        body::after{
+
+            content:'';
+
+            position:absolute;
+
+            width:300px;
+            height:300px;
+
+            background:#8b5cf6;
+
+            filter:blur(180px);
+
+            bottom:-100px;
+            right:-100px;
+
+            opacity:0.25;
+
+            z-index:-1;
+        }
+
+        .container{
+
+            width:420px;
+
+            background:rgba(255,255,255,0.08);
+
+            border:1px solid rgba(255,255,255,0.1);
+
+            backdrop-filter:blur(20px);
+
+            border-radius:30px;
+
+            padding:45px;
+
+            box-shadow:0 8px 40px rgba(0,0,0,0.4);
+
+            animation:fadeIn 0.7s ease;
+        }
+
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        .logo{
+
+            text-align:center;
+
+            margin-bottom:25px;
+        }
+
+        .logo i{
+
+            font-size:55px;
+
+            color:#38bdf8;
+
+            margin-bottom:15px;
+        }
+
+        h1{
+
+            text-align:center;
+
+            margin-bottom:10px;
+
+            font-size:38px;
+
+            background:linear-gradient(to right,#38bdf8,#818cf8);
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+        }
+
+        .subtitle{
+
+            text-align:center;
+
+            color:#cbd5e1;
+
+            margin-bottom:35px;
+
+            font-size:15px;
+        }
+
+        .input-group{
+
+            margin-bottom:22px;
+        }
+
+        .input-group label{
+
+            display:block;
+
+            margin-bottom:8px;
+
+            color:#cbd5e1;
+
+            font-size:14px;
+        }
+
+        .input-box{
+
+            position:relative;
+        }
+
+        .input-box i{
+
+            position:absolute;
+
+            top:50%;
+
+            left:15px;
+
+            transform:translateY(-50%);
+
+            color:#94a3b8;
+        }
+
+        input{
+
+            width:100%;
+
+            padding:16px 16px 16px 48px;
+
+            border:none;
+
+            outline:none;
+
+            border-radius:15px;
+
+            background:#0f172a;
+
+            color:white;
+
+            font-size:15px;
+
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        input::placeholder{
+            color:#94a3b8;
+        }
+
+        input:focus{
+
+            border:1px solid #38bdf8;
+        }
+
+        button{
+
+            width:100%;
+
+            padding:16px;
+
+            border:none;
+
+            border-radius:15px;
+
+            background:linear-gradient(to right,#06b6d4,#3b82f6);
+
+            color:white;
+
+            font-size:17px;
+
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.3s;
+
+            margin-top:10px;
+
+            box-shadow:0 8px 25px rgba(59,130,246,0.3);
+        }
+
+        button:hover{
+
+            transform:translateY(-4px);
+
+            box-shadow:0 12px 30px rgba(59,130,246,0.4);
+        }
+
+        .bottom-text{
+
+            text-align:center;
+
+            margin-top:25px;
+
+            color:#cbd5e1;
+
+            font-size:14px;
+        }
+
+        .bottom-text a{
+
+            color:#38bdf8;
+
+            text-decoration:none;
+
+            font-weight:600;
+        }
+
+        .bottom-text a:hover{
+
+            text-decoration:underline;
+        }
+
+        @media(max-width:500px){
+
+            .container{
+
+                width:90%;
+
+                padding:35px;
+            }
+
+            h1{
+                font-size:30px;
+            }
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-    <h1>Signup</h1>
+    <div class="container">
 
-    <form method="POST">
+        <div class="logo">
 
-        <input type="text"
-               name="username"
-               placeholder="Username"
-               required>
+            <i class="fa-solid fa-user-plus"></i>
 
-        <br><br>
+        </div>
 
-        <input type="password"
-               name="password"
-               placeholder="Password"
-               required>
+        <h1>Create Account 🚀</h1>
 
-        <br><br>
+        <p class="subtitle">
 
-        <button type="submit">
-            Signup
-        </button>
+            Signup to start AI-powered resume analysis
 
-    </form>
+        </p>
 
-    <br>
+        <form method="POST">
 
-    <a href="/login">
-        Already have account? Login
-    </a>
+            <div class="input-group">
+
+                <label>Username</label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input type="text"
+                           name="username"
+                           placeholder="Create username"
+                           required>
+
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input type="password"
+                           name="password"
+                           placeholder="Create password"
+                           required>
+
+                </div>
+
+            </div>
+
+            <button type="submit">
+
+                Signup
+
+            </button>
+
+        </form>
+
+        <div class="bottom-text">
+
+            Already have an account?
+
+            <a href="/login">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </div>
 
 </body>
 

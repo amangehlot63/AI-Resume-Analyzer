@@ -10,50 +10,140 @@
 
     <title>Resume Analysis History</title>
 
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
     <style>
 
-        body{
-            font-family: Arial;
-            background: #f4f7fc;
-            padding: 30px;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        h1{
-            text-align: center;
-            color: #007bff;
-            margin-bottom: 30px;
+        body{
+            font-family:'Poppins',sans-serif;
+            background:linear-gradient(135deg,#020617,#0f172a,#111827);
+            color:white;
+            min-height:100vh;
+            padding:40px;
+        }
+
+        .container{
+            max-width:1400px;
+            margin:auto;
+        }
+
+        .title{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .title h1{
+            font-size:48px;
+            margin-bottom:10px;
+            background:linear-gradient(to right,#38bdf8,#818cf8);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .title p{
+            color:#cbd5e1;
+            font-size:18px;
+        }
+
+        .table-container{
+            overflow-x:auto;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(20px);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:25px;
+            padding:25px;
+            box-shadow:0 8px 30px rgba(0,0,0,0.3);
         }
 
         table{
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-        }
-
-        th, td{
-            padding: 15px;
-            border: 1px solid #ddd;
-            text-align: center;
+            width:100%;
+            border-collapse:collapse;
+            min-width:1100px;
         }
 
         th{
-            background: #007bff;
-            color: white;
+            background:linear-gradient(to right,#06b6d4,#3b82f6);
+            color:white;
+            padding:18px;
+            font-size:15px;
+            text-transform:uppercase;
+            letter-spacing:1px;
         }
 
-        tr:nth-child(even){
-            background: #f9f9f9;
+        td{
+            padding:18px;
+            text-align:center;
+            border-bottom:1px solid rgba(255,255,255,0.08);
+            color:#e2e8f0;
+        }
+
+        tr{
+            transition:0.3s;
+        }
+
+        tr:hover{
+            background:rgba(255,255,255,0.08);
+        }
+
+        .score{
+            font-weight:700;
+            color:#38bdf8;
+        }
+
+        .skills{
+            text-align:left;
+            line-height:1.8;
+        }
+
+        .btn-container{
+            margin-top:35px;
+            display:flex;
+            justify-content:center;
         }
 
         .btn{
-            display: inline-block;
-            margin-top: 30px;
-            text-decoration: none;
-            background: green;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
+            text-decoration:none;
+            padding:16px 30px;
+            border-radius:14px;
+            background:linear-gradient(to right,#06b6d4,#3b82f6);
+            color:white;
+            font-weight:600;
+            transition:0.3s;
+            box-shadow:0 6px 20px rgba(59,130,246,0.3);
+        }
+
+        .btn:hover{
+            transform:translateY(-5px);
+        }
+
+        @media(max-width:768px){
+
+            body{
+                padding:20px;
+            }
+
+            .title h1{
+                font-size:36px;
+            }
+
+            th,td{
+                padding:14px;
+                font-size:14px;
+            }
         }
 
     </style>
@@ -62,57 +152,84 @@
 
 <body>
 
-    <h1>
-        Resume Analysis History 🚀
-    </h1>
+    <div class="container">
 
-    <table>
+        <div class="title">
 
-        <tr>
+            <h1>Resume Analysis History 🚀</h1>
 
-            <th>ID</th>
+            <p>
+                View all previous AI-powered resume analyses
+            </p>
 
-            <th>File</th>
+        </div>
 
-            <th>Email</th>
+        <div class="table-container">
 
-            <th>Phone</th>
+            <table>
 
-            <th>ATS Score</th>
+                <tr>
 
-            <th>Job Match</th>
+                    <th>ID</th>
 
-            <th>Skills</th>
+                    <th>File Name</th>
 
-        </tr>
+                    <th>Email</th>
 
-        {% for row in analyses %}
+                    <th>Phone</th>
 
-        <tr>
+                    <th>ATS Score</th>
 
-            <td>{{ row[0] }}</td>
+                    <th>Job Match</th>
 
-            <td>{{ row[1] }}</td>
+                    <th>Skills</th>
 
-            <td>{{ row[2] }}</td>
+                </tr>
 
-            <td>{{ row[3] }}</td>
+                {% for row in analyses %}
 
-            <td>{{ row[4] }}</td>
+                <tr>
 
-            <td>{{ row[5] }}%</td>
+                    <td>{{ row[0] }}</td>
 
-            <td>{{ row[6] }}</td>
+                    <td>{{ row[1] }}</td>
 
-        </tr>
+                    <td>{{ row[2] }}</td>
 
-        {% endfor %}
+                    <td>{{ row[3] }}</td>
 
-    </table>
+                    <td class="score">
+                        {{ row[4] }}/100
+                    </td>
 
-    <a href="/" class="btn">
-        Back To Home
-    </a>
+                    <td class="score">
+                        {{ row[5] }}%
+                    </td>
+
+                    <td class="skills">
+                        {{ row[6] }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+        <div class="btn-container">
+
+            <a href="/"
+               class="btn">
+
+                Back To Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
 
 </body>
 

@@ -2,50 +2,331 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>AI Resume Analyzer</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
 
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
         body{
-            font-family: Arial;
-            background: #f4f4f4;
-            text-align: center;
-            padding-top: 100px;
+            font-family:'Poppins',sans-serif;
+            background:linear-gradient(135deg,#020617,#0f172a,#111827);
+            min-height:100vh;
+            color:white;
+            overflow-x:hidden;
+            position:relative;
         }
 
-        h1{
-            color: #333;
-            font-size: 40px;
+        body::before{
+
+            content:'';
+
+            position:absolute;
+
+            width:400px;
+            height:400px;
+
+            background:#3b82f6;
+
+            filter:blur(180px);
+
+            top:-100px;
+            left:-100px;
+
+            opacity:0.25;
+
+            z-index:-1;
         }
 
-        p{
-            color: #666;
-            font-size: 20px;
+        body::after{
+
+            content:'';
+
+            position:absolute;
+
+            width:350px;
+            height:350px;
+
+            background:#8b5cf6;
+
+            filter:blur(180px);
+
+            bottom:-100px;
+            right:-100px;
+
+            opacity:0.2;
+
+            z-index:-1;
+        }
+
+        .navbar{
+            width:100%;
+            padding:25px 60px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .logo{
+            font-size:30px;
+            font-weight:700;
+            color:#38bdf8;
+        }
+
+        .nav-right{
+            display:flex;
+            align-items:center;
+            gap:15px;
+            color:#e2e8f0;
+            font-size:15px;
+        }
+
+        .logout{
+            text-decoration:none;
+            color:white;
+            background:linear-gradient(to right,#ef4444,#dc2626);
+            padding:12px 22px;
+            border-radius:12px;
+            transition:0.3s;
+            font-weight:600;
+        }
+
+        .logout:hover{
+            transform:translateY(-3px);
+        }
+
+        .hero{
+            width:100%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
         }
 
         .container{
-            background: white;
-            width: 60%;
-            margin: auto;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            width:100%;
+            max-width:950px;
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(255,255,255,0.1);
+            backdrop-filter:blur(20px);
+            border-radius:30px;
+            padding:55px;
+            box-shadow:0 8px 40px rgba(0,0,0,0.4);
         }
 
-        button{
-            padding: 12px 25px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
+        .title{
+            text-align:center;
+            margin-bottom:45px;
         }
 
-        button:hover{
-            background: #0056b3;
+        .badge{
+
+            display:inline-block;
+
+            padding:10px 22px;
+
+            border-radius:30px;
+
+            background:rgba(56,189,248,0.12);
+
+            border:1px solid rgba(56,189,248,0.3);
+
+            color:#38bdf8;
+
+            margin-bottom:20px;
+
+            font-size:14px;
+
+            font-weight:600;
+        }
+
+        .title h1{
+            font-size:56px;
+            margin-bottom:18px;
+            line-height:1.2;
+
+            background:linear-gradient(to right,#38bdf8,#818cf8);
+
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .title p{
+            color:#cbd5e1;
+            font-size:18px;
+            line-height:1.8;
+            max-width:750px;
+            margin:auto;
+        }
+
+        .upload-box{
+            border:2px dashed rgba(255,255,255,0.2);
+            border-radius:22px;
+            padding:45px;
+            text-align:center;
+            margin-bottom:35px;
+            transition:0.3s;
+            background:rgba(255,255,255,0.03);
+        }
+
+        .upload-box:hover{
+            border-color:#38bdf8;
+            transform:translateY(-4px);
+            background:rgba(255,255,255,0.05);
+        }
+
+        .upload-box h2{
+            margin-bottom:15px;
+            color:#38bdf8;
+        }
+
+        input[type="file"]{
+            margin-top:15px;
+            color:white;
+            font-size:15px;
+        }
+
+        h3{
+            margin-bottom:15px;
+            color:#38bdf8;
+            font-size:22px;
+        }
+
+        textarea{
+            width:100%;
+            height:190px;
+            padding:22px;
+            border:none;
+            outline:none;
+            border-radius:18px;
+            background:#0f172a;
+            color:white;
+            margin-top:10px;
+            font-size:15px;
+            resize:none;
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        textarea::placeholder{
+            color:#94a3b8;
+        }
+
+        .btn{
+            width:100%;
+            padding:20px;
+            border:none;
+            border-radius:18px;
+            margin-top:35px;
+            font-size:18px;
+            font-weight:600;
+            cursor:pointer;
+            background:linear-gradient(to right,#06b6d4,#3b82f6);
+            color:white;
+            transition:0.3s;
+            box-shadow:0 8px 25px rgba(59,130,246,0.3);
+        }
+
+        .btn:hover{
+            transform:translateY(-5px);
+            box-shadow:0 12px 30px rgba(59,130,246,0.4);
+        }
+
+        .features{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:22px;
+            margin-top:50px;
+        }
+
+        .feature-card{
+            background:rgba(255,255,255,0.06);
+            padding:30px;
+            border-radius:22px;
+            text-align:center;
+            transition:0.3s;
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        .feature-card:hover{
+            transform:translateY(-6px);
+            background:rgba(255,255,255,0.09);
+        }
+
+        .feature-card i{
+            color:#38bdf8;
+            margin-bottom:18px;
+        }
+
+        .feature-card h3{
+            margin-top:10px;
+            margin-bottom:12px;
+            color:#38bdf8;
+            font-size:22px;
+        }
+
+        .feature-card p{
+            color:#cbd5e1;
+            font-size:14px;
+            line-height:1.8;
+        }
+
+        footer{
+
+            text-align:center;
+
+            margin-top:45px;
+
+            color:#94a3b8;
+
+            font-size:14px;
+        }
+
+        @media(max-width:768px){
+
+            .container{
+                padding:35px;
+            }
+
+            .title h1{
+                font-size:38px;
+            }
+
+            .navbar{
+                padding:20px;
+                flex-direction:column;
+                gap:20px;
+            }
+
+            .hero{
+                padding:20px;
+            }
+
+            .nav-right{
+                flex-direction:column;
+            }
         }
 
     </style>
@@ -54,51 +335,155 @@
 
 <body>
 
-    <h3 style="text-align:right; padding-right:30px;">
+    <div class="navbar">
 
-    Welcome,
-    {{ session['user'] }}
+        <div class="logo">
+            AI Resume Analyzer 🚀
+        </div>
 
-    |
+        <div class="nav-right">
 
-    <a href="/logout">
-        Logout
-    </a>
+            <span>
+                Welcome, {{ session['user'] }}
+            </span>
 
-    </h3>
+            <a href="/dashboard"
+            class="logout"
+            style="background:linear-gradient(to right,#06b6d4,#3b82f6);">
+
+            Dashboard
+
+            </a>
 
 
+            <a href="/logout"
+               class="logout">
 
-    <div class="container">
+                Logout
 
-        <h1>AI Resume Analyzer 🚀</h1>
+            </a>
 
-        <p>
-            Upload your resume and get ATS score,
-            skill analysis, job matching and interview questions.
-        </p>
+        </div>
 
-<form action="/upload" method="POST" enctype="multipart/form-data">
+    </div>
 
-    <input type="file" name="resume" required>
+    <div class="hero">
 
-    <br><br>
+        <div class="container">
 
-    <textarea
-        name="job_description"
-        rows="10"
-        cols="60"
-        placeholder="Paste Job Description Here..."
-        required>
-    </textarea>
+            <div class="title">
 
-    <br><br>
+                <div class="badge">
+                    AI Powered Career Intelligence
+                </div>
 
-    <button type="submit">
-        Upload Resume
-    </button>
+                <h1>
+                    Analyze Resume With AI 🚀
+                </h1>
 
-</form>
+                <p>
+
+                    Smart ATS analysis powered by AI,
+                    NLP, TF-IDF matching, interview intelligence,
+                    and advanced resume analytics.
+
+                </p>
+
+            </div>
+
+            <form action="/upload"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <div class="upload-box">
+
+                    <h2>📄 Upload Resume</h2>
+
+                    <input type="file"
+                           name="resume"
+                           required>
+
+                </div>
+
+                <h3>
+                    💼 Paste Job Description
+                </h3>
+
+                <textarea
+                    name="job_description"
+                    placeholder="Paste complete job description here..."
+                    required>
+                </textarea>
+
+                <button type="submit"
+                        class="btn">
+
+                    Analyze Resume
+
+                </button>
+
+            </form>
+
+            <div class="features">
+
+                <div class="feature-card">
+
+                    <i class="fa-solid fa-chart-line fa-2x"></i>
+
+                    <h3>Smart ATS Engine</h3>
+
+                    <p>
+
+                        Advanced ATS scoring system
+                        to optimize resume visibility
+                        and recruiter compatibility.
+
+                    </p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <i class="fa-solid fa-briefcase fa-2x"></i>
+
+                    <h3>AI Job Matching</h3>
+
+                    <p>
+
+                        Intelligent TF-IDF based
+                        job description matching
+                        with similarity analysis.
+
+                    </p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <i class="fa-solid fa-brain fa-2x"></i>
+
+                    <h3>Interview Intelligence</h3>
+
+                    <p>
+
+                        Generate personalized
+                        technical interview questions
+                        based on detected skills.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <footer>
+
+                Built with ❤️ using Flask, NLP & AI
+
+            </footer>
+
+        </div>
+
     </div>
 
 </body>

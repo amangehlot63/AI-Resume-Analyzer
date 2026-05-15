@@ -24,9 +24,10 @@ from flask import (
     Flask,
     render_template,
     request,
-    send_file
+    send_file,
+    redirect,
+    session
 )
-
 
 # =========================
 # PYTHON IMPORTS
@@ -118,6 +119,31 @@ def home():
 
     return render_template('index.html')
 
+
+# =========================================================
+# DASHBOARD ROUTE
+# =========================================================
+
+@app.route('/dashboard')
+def dashboard():
+
+    # Check login
+    if 'user' not in session:
+
+        return redirect('/login')
+
+    return render_template(
+
+        'dashboard.html',
+
+        ats_score=global_ats_score,
+
+        job_match_score=global_job_match_score,
+
+        total_skills=len(global_skills),
+
+        total_questions=len(global_questions)
+    )
 
 # =========================================================
 # RESUME UPLOAD & ANALYSIS ROUTE
@@ -344,7 +370,7 @@ def login():
 
             session['user'] = username
 
-            return redirect('/')
+            return redirect('/dashboard')
 
         else:
 
