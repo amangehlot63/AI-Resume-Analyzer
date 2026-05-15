@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1{
+            color: #333;
+            font-size: 40px;
+        }
+
+        p{
+            color: #666;
+            font-size: 20px;
+        }
+
+        .container{
+            background: white;
+            width: 60%;
+            margin: auto;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        button{
+            padding: 12px 25px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background: #0056b3;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h3 style="text-align:right; padding-right:30px;">
+
+    Welcome,
+    {{ session['user'] }}
+
+    |
+
+    <a href="/logout">
+        Logout
+    </a>
+
+    </h3>
+
+
+
+    <div class="container">
+
+        <h1>AI Resume Analyzer 🚀</h1>
+
+        <p>
+            Upload your resume and get ATS score,
+            skill analysis, job matching and interview questions.
+        </p>
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+
+    <input type="file" name="resume" required>
+
+    <br><br>
+
+    <textarea
+        name="job_description"
+        rows="10"
+        cols="60"
+        placeholder="Paste Job Description Here..."
+        required>
+    </textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Upload Resume
+    </button>
+
+</form>
+    </div>
+
+</body>
+
+</html>

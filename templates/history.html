@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analysis History</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background: #f4f7fc;
+            padding: 30px;
+        }
+
+        h1{
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td{
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th{
+            background: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even){
+            background: #f9f9f9;
+        }
+
+        .btn{
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            background: green;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>
+        Resume Analysis History 🚀
+    </h1>
+
+    <table>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>File</th>
+
+            <th>Email</th>
+
+            <th>Phone</th>
+
+            <th>ATS Score</th>
+
+            <th>Job Match</th>
+
+            <th>Skills</th>
+
+        </tr>
+
+        {% for row in analyses %}
+
+        <tr>
+
+            <td>{{ row[0] }}</td>
+
+            <td>{{ row[1] }}</td>
+
+            <td>{{ row[2] }}</td>
+
+            <td>{{ row[3] }}</td>
+
+            <td>{{ row[4] }}</td>
+
+            <td>{{ row[5] }}%</td>
+
+            <td>{{ row[6] }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <a href="/" class="btn">
+        Back To Home
+    </a>
+
+</body>
+
+</html>
